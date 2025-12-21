@@ -28,6 +28,7 @@ import br.com.axweb.tasklist.ui.theme.TaskListTheme
 
 @Composable
 fun TaskCard(
+    modifier: Modifier = Modifier,
     task: TaskItem,
     onDeleteClick: () -> Unit,
     onEditClick: () -> Unit
@@ -35,7 +36,7 @@ fun TaskCard(
     var isTaskCompleted by remember { mutableStateOf(task.isCompleted) }
     val styleText = if (isTaskCompleted) TextDecoration.LineThrough else TextDecoration.None
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(vertical = 4.dp),
         elevation = CardDefaults.cardElevation(4.dp)
@@ -93,6 +94,7 @@ fun TaskCard(
 private fun TaskCardPreview() {
     TaskListTheme {
         TaskCard(
+            modifier = Modifier,
             TaskItem(
                 title = "Minha task", isCompleted = false
             ),
