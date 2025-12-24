@@ -13,6 +13,10 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
@@ -21,12 +25,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import br.com.axweb.tasklist.ui.theme.TaskListTheme
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -37,6 +43,8 @@ fun TaskListScreen() {
     var currentEditTitle by remember { mutableStateOf("") }
     var taskToEdit by remember { mutableStateOf<TaskItem?>(null) }
     var showDialog by remember { mutableStateOf(false) }
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
 
     Scaffold(
         floatingActionButton = {
@@ -49,6 +57,9 @@ fun TaskListScreen() {
         },
         topBar = {
             TopAppBar(title = { Text(text = "Minhas Tarefas") })
+        },
+        snackbarHost = {
+            SnackbarHost(snackbarHostState)
         }
     ) { innerpadding ->
 
@@ -70,7 +81,18 @@ fun TaskListScreen() {
                 confirmButton = {
                     TextButton(onClick = {
                         if (newTask.isNotBlank()) {
-                            taskList.add(TaskItem(title = newTask))
+                            val taskAdd = TaskItem(title = newTask)
+                            taskList.add(taskAdd)
+                            scope.launch {
+                                val result = snackbarHostState.showSnackbar(
+                                    message = "Tarefa adionada com sucesso!",
+                                    duration = SnackbarDuration.Short,
+                                    actionLabel = "Desfazer"
+                                )
+                                if (result == SnackbarResult.ActionPerformed) {
+                                    taskList.remove(taskAdd)
+                                }
+                            }
                             newTask = ""
                             showDialog = false
                         }

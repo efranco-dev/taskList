@@ -9,6 +9,8 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -44,6 +46,20 @@ fun TaskCard(
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
+        Checkbox(
+            checked = task.isCompleted,
+            onCheckedChange = {
+                isTaskCompleted = !isTaskCompleted
+                task.isCompleted = isTaskCompleted
+            },
+            colors = CheckboxDefaults.colors(
+                checkedColor = Color(0XFF388E3C)
+            )
+        )
+
+
+
+
             Text(
                 modifier = Modifier
                     .padding(16.dp)
@@ -52,7 +68,7 @@ fun TaskCard(
                 style = MaterialTheme.typography.bodyLarge,
                 textDecoration = styleText
             )
-            Text(
+          /*  Text(
                 text = if (isTaskCompleted) "Concluida" else "Pendente",
                 style = MaterialTheme.typography.bodyMedium,
                 color = if (isTaskCompleted) Color(0XFF388E3C) else Color.Black
@@ -68,7 +84,7 @@ fun TaskCard(
                     contentDescription = if (isTaskCompleted) "Tarefa concluida" else "Marcar como concluida",
                     tint = if (isTaskCompleted) Color(0XFF388E3C) else Color.Black
                 )
-            }
+            }*/
             IconButton(
                 onClick = onEditClick
             ) {
