@@ -115,24 +115,30 @@ fun TaskListScreen() {
                     )
             )
         }
-        LazyColumn(
-            modifier = Modifier.padding(innerpadding)
-        ) {
-            items(
-                items = taskList,
-                key = { task -> task.id }) { task ->
-                TaskCard(
-                    modifier = Modifier.padding(horizontal = 24.dp),
-                    task = task,
-                    onDeleteClick = {
-                        taskList.remove(task)
-                    },
-                    onEditClick = {
-                        showEditTaskSheet = true
-                        currentEditTitle = task.title
-                        taskToEdit = task
-                    }
-                )
+        if (taskList.isEmpty()) {
+            EmptyScreen()
+        } else {
+            LazyColumn(
+                modifier = Modifier.padding(innerpadding)
+            ) {
+                items(
+                    items = taskList,
+                    key = { task -> task.id }) { task ->
+                    TaskCard(
+                        modifier = Modifier
+                            .padding(horizontal = 24.dp)
+                            .animateItem(),
+                        task = task,
+                        onDeleteClick = {
+                            taskList.remove(it)
+                        },
+                        onEditClick = {
+                            showEditTaskSheet = true
+                            currentEditTitle = task.title
+                            taskToEdit = task
+                        }
+                    )
+                }
             }
         }
         if (showEditTaskSheet) {
