@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">taskList</string>
+    <string name="delete_task">Deletar tarefa</string>
+    <string name="edit_task">Editar tarefa</string>
+    <string name="add_task">Adicionar tarefa</string>
+    <string name="top_bar_name">Minhas Tarefas</string>
+    <string name="title_new_task">Nova tarefa</string>
+    <string name="new_task_label">Digite uma nova tarefa</string>
+    <string name="add_task_success">Tarefa adionada com sucesso!</string>
+    <string name="undo_label">Desfazer</string>
+    <string name="cancel_task_button">Cancelar</string>
+    <string name="empty_list">Lista vazia</string>
+    <string name="empty_list_title">Sua lista está vazia</string>
+    <string name="empty_list_description">Clique no botão abaixo para adicionar sua primeira tarefa</string>
+    <string name="task_name">Nome da tarefa</string>
+    <string name="confirm_button">Confirmar</string>
 </resources>

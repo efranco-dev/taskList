@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -46,23 +47,23 @@ fun EmptyScreen(
     ) {
         Image(
             painter = painterResource(R.drawable.empty_list),
-            contentDescription = "Lista vazia",
+            contentDescription = stringResource(R.string.empty_list),
             modifier = Modifier
                 .fillMaxWidth()
                 .height(200.dp)
-                .graphicsLayer{
+                .graphicsLayer {
                     scaleX = scale
                     scaleY = scale
                 }
         )
         Spacer(modifier = Modifier.height(24.dp))
         Text(
-            text = "Sua lista está vazia",
+            text = stringResource(R.string.empty_list_title),
             style = MaterialTheme.typography.titleLarge
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "Clique no botão abaixo para adicionar sua primeira tarefa",
+            text = stringResource(R.string.empty_list_description),
             style = MaterialTheme.typography.bodyMedium
         )
     }

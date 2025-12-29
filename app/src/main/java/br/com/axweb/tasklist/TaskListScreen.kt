@@ -28,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
@@ -46,17 +47,20 @@ fun TaskListScreen() {
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
+    val addTaskMessage = stringResource(R.string.add_task_success)
+    val undoLabel = stringResource(R.string.undo_label)
+
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { showDialog = true },
                 shape = CircleShape
             ) {
-                Icon(Icons.Filled.Add, contentDescription = "Adicionar tarefa")
+                Icon(Icons.Filled.Add, contentDescription = stringResource(R.string.add_task))
             }
         },
         topBar = {
-            TopAppBar(title = { Text(text = "Minhas Tarefas") })
+            TopAppBar(title = { Text(text = stringResource(R.string.top_bar_name)) })
         },
         snackbarHost = {
             SnackbarHost(snackbarHostState)
@@ -69,12 +73,12 @@ fun TaskListScreen() {
                     showDialog = false
                     newTask = ""
                 },
-                title = { Text("Nova tarefa") },
+                title = { Text(stringResource(R.string.title_new_task)) },
                 text = {
                     OutlinedTextField(
                         value = newTask,
                         onValueChange = { newTask = it },
-                        label = { Text("Digite uma nova tarefa") },
+                        label = { Text(stringResource(R.string.new_task_label)) },
                         modifier = Modifier.fillMaxWidth(),
                     )
                 },
@@ -85,9 +89,9 @@ fun TaskListScreen() {
                             taskList.add(taskAdd)
                             scope.launch {
                                 val result = snackbarHostState.showSnackbar(
-                                    message = "Tarefa adionada com sucesso!",
+                                    message = addTaskMessage,
                                     duration = SnackbarDuration.Short,
-                                    actionLabel = "Desfazer"
+                                    actionLabel = undoLabel
                                 )
                                 if (result == SnackbarResult.ActionPerformed) {
                                     taskList.remove(taskAdd)
@@ -97,7 +101,7 @@ fun TaskListScreen() {
                             showDialog = false
                         }
                     }) {
-                        Text("Adicionar")
+                        Text(stringResource(R.string.add_task))
                     }
                 },
                 dismissButton = {
@@ -105,7 +109,7 @@ fun TaskListScreen() {
                         showDialog = false
                         newTask = ""
                     }) {
-                        Text("Cancelar")
+                        Text(stringResource(R.string.cancel_task_button))
                     }
                 },
                 properties =

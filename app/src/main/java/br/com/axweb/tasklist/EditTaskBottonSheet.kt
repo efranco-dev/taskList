@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 
@@ -43,7 +44,7 @@ fun EditTaskBottonSheet(
                 value = taskValue,
                 onValueChange = onTaskValueChange,
                 modifier = Modifier.fillMaxWidth(),
-                label = { Text(text = "Nome da tarefa") },
+                label = { Text(text = stringResource(R.string.task_name)) },
                 shape = MaterialTheme.shapes.large,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                 singleLine = true
@@ -57,7 +58,7 @@ fun EditTaskBottonSheet(
 
             ) {
                 Text(
-                    text = "Confirmar",
+                    text = stringResource(R.string.confirm_button),
                     modifier = Modifier.padding(vertical = 8.dp)
                 )
             }
